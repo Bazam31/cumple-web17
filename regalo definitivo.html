@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Feliz cumpleaños mi chica bella ✨ — Un universo para ti</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Parisienne&display=swap" rel="stylesheet">
+
+<style>
+  /* ================= ROOT & RESET ================= */
+  :root{
+    --bg-dark:#04030a;
+    --bg-mid:#0b0b1a;
+    --accent:#ff6aa3;
+    --accent-2:#8ad8ff;
+    --soft:#ffd7ef;
+    --gold:#ffd89a;
+    --glass: rgba(255,255,255,0.04);
+    --glass-2: rgba(255,255,255,0.02);
+    --text:#f7f7fb;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Montserrat,system-ui,Arial;background:var(--bg-dark); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+  a{color:inherit}
+
+  /* ================= FULLSCREEN LAYERS ================= */
+  .layer { position:fixed; inset:0; pointer-events:none; z-index:0; }
+  #stars-layer { z-index:0; }
+  #nebula-layer { z-index:0; pointer-events:none; }
+  #particles-layer { z-index:1; }
+  #fugitive-layer { z-index:2; }
+  #petals-layer { z-index:2; }
+
+  /* ================= STARS (CSS multiple layers, twinkle) ================= */
+  .stars, .stars2, .stars3 { position:absolute; inset:0; width:100%; height:100%; background:transparent; }
+  .stars::after {
+    content:""; position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 8% 18%, rgba(255,255,255,0.95) 50%, transparent 51%),
+      radial-gradient(1px 1px at 22% 76%, rgba(255,255,255,0.9) 50%, transparent 51%),
+      radial-gradient(1px 1px at 42% 28%, rgba(255,255,255,0.85) 50%, transparent 51%),
+      radial-gradient(1px 1px at 71% 12%, rgba(255,255,255,0.9) 50%, transparent 51%),
+      radial-gradient(0.9px 0.9px at 60% 80%, rgba(255,255,255,0.8) 50%, transparent 51%);
+    opacity:0.9;
+    animation: twinkleMain 6s infinite ease-in-out;
+    background-size: 1600px 1100px;
+  }
+  .stars2::after { content:""; position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 5% 40%, rgba(255,255,255,0.75) 50%, transparent 51%),
+      radial-gradient(1px 1px at 25% 10%, rgba(255,255,255,0.7) 50%, transparent 51%),
+      radial-gradient(1px 1px at 65% 45%, rgba(255,255,255,0.7) 50%, transparent 51%);
+    opacity:0.55; animation: twinkleAlt 5s infinite ease-in-out; background-size: 2000px 1300px;
+  }
+  .stars3::after{ content:""; position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,0.45) 50%, transparent 51%),
+      radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.45) 50%, transparent 51%);
+    opacity:0.35; animation: twinkleSlow 8s infinite ease-in-out; background-size: 2600px 1500px;
+  }
+  @keyframes twinkleMain { 0%,100%{opacity:.85} 50%{opacity:1} }
+  @keyframes twinkleAlt  { 0%,100%{opacity:.5} 50%{opacity:.85} }
+  @keyframes twinkleSlow { 0%,100%{opacity:.35} 50%{opacity:.6} }
+
+  /* ================= NEBULA / AURORA ================= */
+  #nebula-layer { position:fixed; inset:0; z-index:0; pointer-events:none; mix-blend-mode:screen; }
+  .aurora {
+    position:absolute; inset:-20% -20% -20% -20%;
+    background: linear-gradient(120deg, rgba(138,216,255,0.06), rgba(255,106,163,0.03), rgba(255,216,154,0.02));
+    filter: blur(60px) saturate(1.1);
+    animation: auroraShift 18s linear infinite;
+    opacity:0.9;
+  }
+  @keyframes auroraShift {
+    0% { transform: translateX(-6%) translateY(0) rotate(0deg) scale(1.02); }
+    50% { transform: translateX(6%) translateY(-6%) rotate(2deg) scale(1.05); }
+    100% { transform: translateX(-6%) translateY(0) rotate(0deg) scale(1.02); }
+  }
+
+  /* ================= SUBTLE PARTICLES (canvas) ================= */
+  #particles-layer { z-index:1; }
+
+  /* ================= PETALS ================= */
+  .petal { position:absolute; width:26px; height:26px; border-radius:60% 40% 50% 50% / 60% 40% 50% 50%; background:linear-gradient(180deg,#ffd7ef,#ff9acb); opacity:0.95; filter: drop-shadow(0 6px 18px rgba(255,150,190,0.08)); pointer-events:none; }
+
+  /* ================= PAGE CARD / LAYOUT ================= */
+  .ui { position:relative; z-index:10; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px; }
+  .card { width:100%; max-width:1200px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:18px; padding:22px; box-shadow:0 30px 90px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.03); backdrop-filter: blur(6px); color:var(--text); }
+  .header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; }
+  .brand { display:flex; gap:12px; align-items:center; }
+  .logo { width:64px; height:64px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg,var(--accent),#ff9acb); font-family:'Parisienne', cursive; font-size:28px; color:#fff; box-shadow:0 8px 28px rgba(255,106,163,0.16); }
+  .title h1{ margin:0; font-size:20px; }
+  .title p{ margin:0; color:rgba(255,255,255,0.85); font-size:13px; }
+
+  .layout { display:grid; grid-template-columns: 1fr 420px; gap:20px; align-items:start; }
+  @media (max-width:980px){ .layout{ grid-template-columns:1fr } .side{ order:2 } }
+
+  .left { padding:12px; }
+  .welcome { height:320px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  .welcome .big{ font-family: 'Parisienne', cursive; font-size:44px; color:var(--soft); text-shadow:0 6px 30px rgba(138,216,255,0.06); }
+  .welcome .sub{ margin-top:8px; font-size:14px; opacity:0.9 }
+  .enter-btn { margin-top:16px; padding:10px 18px; background:linear-gradient(90deg,var(--accent),#ff9acb); color:#111; border:none; border-radius:12px; font-weight:700; cursor:pointer; box-shadow:0 12px 36px rgba(255,106,163,0.12); }
+
+  .carta { margin-top:14px; background:var(--glass); padding:14px; border-radius:12px; font-size:15px; line-height:1.5; min-height:120px; position:relative; }
+  .typewriter-title{ font-family:'Parisienne', cursive; font-size:22px; color:var(--accent); margin-bottom:6px; }
+  .typewriter-body{ font-size:14px; opacity:0.95; }
+
+  .mini-row { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
+  .panel { flex:1; min-width:180px; background:var(--glass-2); padding:10px; border-radius:10px; }
+
+  .side { padding:12px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); }
+  .countdown { text-align:center; padding:14px; border-radius:10px; background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); margin-bottom:12px; }
+  .countdown h3{ margin:0; color:var(--accent-2) }
+  .countdown .time{ font-size:28px; font-weight:800; margin-top:8px; }
+
+  .carousel { height:240px; border-radius:12px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; background:#071028; box-shadow: inset 0 -20px 60px rgba(0,0,0,0.4); }
+  .carousel-stage > div { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition:opacity .6s ease, transform .6s ease; opacity:0; transform:scale(.98); }
+  .carousel-stage img, .carousel-stage video { width:100%; height:100%; object-fit:cover; display:block; border-radius:8px; }
+  .carousel-controls { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; gap:8px; pointer-events:auto; z-index:6; }
+  .dot { width:10px; height:10px; border-radius:999px; background:rgba(255,255,255,0.18); cursor:pointer; }
+  .dot.active { background:var(--accent); box-shadow:0 6px 20px rgba(255,106,163,0.12); }
+  .arrow { position:absolute; top:50%; transform:translateY(-50%); background:transparent; border:none; font-size:30px; color:rgba(255,255,255,0.9); cursor:pointer; z-index:6; }
+  .arrow.left{ left:8px } .arrow.right{ right:8px }
+
+  .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:9999; }
+  .modal.show { display:flex; }
+  .modal .backdrop { position:absolute; inset:0; backdrop-filter: blur(8px) saturate(1.06); background: linear-gradient(180deg, rgba(8,7,14,0.48), rgba(8,7,14,0.6)); }
+  .modal .box { position:relative; width:clamp(320px,80%,1000px); border-radius:12px; padding:12px; z-index:2; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.035); box-shadow: 0 40px 120px rgba(0,0,0,0.6); }
+
+  .play-overlay { position:absolute; width:84px; height:84px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); z-index:3; pointer-events:none; }
+  .play-overlay svg { filter: drop-shadow(0 6px 18px rgba(0,0,0,0.5)); }
+
+  .constel-box { position:absolute; right:18px; bottom:18px; width:260px; height:160px; pointer-events:auto; }
+  svg.constel { width:100%; height:100%; opacity:0.95; }
+
+  .planet-row { display:flex; gap:12px; margin-top:12px; align-items:center; justify-content:space-between; }
+  .planet { width:86px; height:86px; border-radius:999px; display:flex; align-items:center; justify-content:center; color:#111; font-weight:700; background:linear-gradient(135deg,#ffd7ef,#ff9acb); box-shadow:0 14px 36px rgba(255,106,163,0.08); transform-origin:center; animation:spin 12s linear infinite; cursor:pointer; }
+  .planet.small{ width:68px;height:68px; font-size:13px; animation-duration:18s; }
+  @keyframes spin { from{ transform: rotate(0deg) } to{ transform: rotate(360deg) } }
+
+  .phrase { position:absolute; pointer-events:none; font-size:14px; opacity:0; transition:opacity .8s ease, transform .8s ease; }
+
+  #game-area { position:relative; height:140px; border-radius:10px; overflow:hidden; margin-top:8px; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); }
+
+  /* star sprite (game) */
+  .star-sprite { position:absolute; width:28px; height:28px; background:radial-gradient(circle at 30% 30%, #fff, transparent 40%), linear-gradient(45deg,#ff9ac3,#8ad8ff); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); border-radius:6px; cursor:pointer; }
+
+  /* cursor styles (custom cursor + trail) */
+  body.custom-cursor * { cursor:none !important; }
+  .cursor-el { position:fixed; z-index:99999; width:36px; height:36px; transform:translate(-50%,-50%); pointer-events:none; display:flex; align-items:center; justify-content:center; transition:transform .06s linear; mix-blend-mode:screen; }
+  .cursor-el svg { width:28px; height:28px; fill:url(#gradHeart); filter: drop-shadow(0 0 6px rgba(255,100,150,0.7)); transition:transform .12s ease; }
+  .cursor-el.active svg { transform: scale(1.25); }
+  .trail { position:fixed; width:10px; height:10px; border-radius:50%; pointer-events:none; background: radial-gradient(circle, #ff7fc1 0%, rgba(255,255,255,0) 70%); opacity:0.8; z-index:9999; }
+
+  .final-overlay { position:fixed; inset:0; display:none; z-index:20000; align-items:center; justify-content:center; pointer-events:none; }
+  .final-overlay.show { display:flex; }
+
+  .birthday-fireworks { position:absolute; inset:0; pointer-events:none; z-index:19; }
+
+  .gold-heart { width:16px; height:16px; background: radial-gradient(circle, rgba(255,230,180,1), rgba(255,200,100,1)); border-radius:4px; box-shadow: 0 10px 30px rgba(255,200,120,0.18); }
+
+  .muted{ opacity:0.8; font-size:13px; }
+  .center{ text-align:center; }
+
+</style>
+</head>
+<body class="custom-cursor">
+
+  <!-- ===== BACKGROUND LAYERS ===== -->
+  <div id="stars-layer" class="layer">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+  </div>
+  <div id="nebula-layer" class="layer"><div class="aurora"></div></div>
+  <canvas id="particles-layer" class="layer"></canvas>
+  <div id="fugitive-layer" class="layer"></div>
+  <div id="petals-layer" class="layer"></div>
+
+  <!-- ===== UI / CONTENT ===== -->
+  <div class="ui">
+    <div class="card" role="main" aria-label="Universo para Bianca">
+      <div class="header">
+        <div class="brand">
+          <div class="logo">B</div>
+          <div class="title">
+            <h1>Feliz cumpleaños, Mi princesa hermosa 😍</h1>
+            <p>Un universo hecho por tu rey — 17 de octubre</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button id="toggle-day" class="enter-btn" title="Modo día / noche">🌙 Modo</button>
+          <button id="music-toggle" class="enter-btn" title="Escuchar canción">🎵 Escuchar canción</button>
+        </div>
+      </div>
+
+      <div class="layout">
+        <!-- LEFT -->
+        <div class="left">
+          <div class="welcome" id="welcome">
+            <div class="big" id="welcome-title"> Mi niña bonita, mi estrella</div>
+            <div class="sub">Hace 17 años el universo brilló un poco más. Hoy celebramos tu vida ✨</div>
+           
+          </div>
+
+          <!-- CARTA -->
+          <div class="carta" id="carta">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <div class="typewriter-title">Para mi Cosita bella🥺</div>
+              <!-- BOTÓN ESCUCHAR VOZ -->
+              <div style="display:flex; gap:8px; align-items:center;">
+                <button id="play-voice" class="enter-btn" style="padding:8px 10px;">💖 Escuchar mensaje de mi principe</button>
+              </div>
+            </div>
+            <div id="type-body" class="typewriter-body" style="margin-top:10px;">
+              Gachas por todos esos momentos juntitos mi vida, por tu ternura, y por estar siempre a mi lado mi vida, amo estar festejando otro cumpleaños tuyo mi princesa, ya sabes que esta fecha es muy especial para mi ya que es el dia en que llegaste al mundo a llenarme mi cielo de estrellas mi vida, quiero hacertelo muy especial y que te sientas muy feliz en este dia tan bonito, este es uno de los 4 o 5 regalitos que te tengo hechos mi amor, te amo te amo te amo y siempre te amare mi vida, quiero seguir festejando mas hermosos cumpleaños tuyos mi vida y hacer que cada uno sea muy especial mi amor, FELIZ CUMPLEAÑOZ MI COSITA BELLA, TE AMO INFINITAMENTE MI PINCHECHITA LINDA💕.💕.
+            </div>
+          </div>
+
+          <!-- PLANETS + GAME -->
+          <div class="mini-row">
+            <div class="panel">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <strong>Planetas de amor</strong>
+                <small class="muted">Toca para abrir</small>
+              </div>
+              <div class="planet-row" style="margin-top:8px;">
+                <div class="planet small" data-what="amor">💞</div>
+                <div class="planet" data-what="recuerdos">🖼</div>
+                <div class="planet small" data-what="futuro">🌠</div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <strong>Minijuego</strong>
+                <small class="muted">Atrapa estrellas</small>
+              </div>
+              <div id="game-area" style="margin-top:8px;"></div>
+              <div style="display:flex; justify-content:space-between; margin-top:8px;">
+                <div><strong>Puntos:</strong> <span id="score">0</span></div>
+                <button id="reset-game" class="enter-btn" style="padding:6px 8px;">Reiniciar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="side">
+          <div class="countdown">
+            <h3>Cuenta regresiva</h3>
+            <div class="time" id="countdown">Cargando...</div>
+            <div class="muted">Días, horas, minutos, segundos</div>
+          </div>
+
+          <!-- CAROUSEL MIXTO -->
+          <div class="carousel" id="carousel-mix" aria-label="Carrusel de recuerdos">
+            <div class="carousel-stage" id="carousel-stage"></div>
+            <div class="carousel-controls" id="carousel-dots"></div>
+            <button class="arrow left" id="prevBtn" aria-label="Anterior">‹</button>
+            <button class="arrow right" id="nextBtn" aria-label="Siguiente">›</button>
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:8px;">
+            <button id="open-surprise" class="enter-btn" style="flex:1">Abrir regalo sorpresa 🎁</button>
+            <button id="open-modal-video" class="enter-btn" style="width:60px">▶</button>
+          </div>
+
+          <div style="margin-top:14px; text-align:center;">
+            <small class="muted">TE AMO TE AMO TE AMOOOOOOOOO MI AMOR ❤❤.</small>
+          </div>
+
+          <!-- constellations -->
+          <div class="constel-box">
+            <svg class="constel" viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <g transform="translate(8,8)">
+                <!-- LIBRA (cada circle tiene data-constel="libra" para interacción) -->
+                <g id="libra" transform="translate(0,0)">
+                  <circle class="const-star" data-constel="libra" cx="26" cy="28" r="3.6" fill="#fff"/>
+                  <circle class="const-star" data-constel="libra" cx="46" cy="40" r="3.6" fill="#fff"/>
+                  <circle class="const-star" data-constel="libra" cx="76" cy="36" r="3.6" fill="#fff"/>
+                  <circle class="const-star" data-constel="libra" cx="102" cy="22" r="3.6" fill="#fff"/>
+                  <path d="M26 28 L46 40 L76 36 L102 22" stroke="#8ad8ff" stroke-width="0.9" stroke-linecap="round" opacity="0.45"></path>
+                  <text x="28" y="52" font-size="9" fill="#bfefff" opacity="0.8">Libra</text>
+                </g>
+                <!-- CAPRICORN -->
+                <g id="capricorn" transform="translate(110,8)">
+                  <circle class="const-star" data-constel="capricorn" cx="18" cy="28" r="3.6" fill="#fff"/>
+                  <circle class="const-star" data-constel="capricorn" cx="36" cy="44" r="3.6" fill="#fff"/>
+                  <circle class="const-star" data-constel="capricorn" cx="66" cy="48" r="3.6" fill="#fff"/>
+                  <circle class="const-star" data-constel="capricorn" cx="86" cy="34" r="3.6" fill="#fff"/>
+                  <path d="M18 28 L36 44 L66 48 L86 34" stroke="#ff9acb" stroke-width="0.9" stroke-linecap="round" opacity="0.45"></path>
+                  <text x="10" y="68" font-size="9" fill="#ffc1e3" opacity="0.8">Capricornio</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL (video player / surprise) -->
+  <div class="modal" id="modal">
+    <div class="backdrop"></div>
+    <div class="box" role="dialog" aria-modal="true">
+      <div id="modal-content"></div>
+      <div style="margin-top:12px; text-align:right;">
+        <button id="close-modal" class="enter-btn" style="padding:8px 12px;">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL OVERLAY (frase grande al final) -->
+  <div class="final-overlay" id="final-overlay"></div>
+
+  <!-- birthday extras container (pétalos + fuegos) -->
+  <div class="birthday-fireworks" id="birthday-fireworks" aria-hidden="true"></div>
+
+  <!-- AUDIOS -->
+  <audio id="bg-audio" loop crossorigin="anonymous">
+    <source src="/music/mivida.mp3" type="audio/mp3">
+  </audio>
+  <!-- tu voz: coloca tu archivo /audio/voz.mp3 -->
+  <audio id="voice-audio" preload="metadata" src="/audio/voz.mp3"></audio>
+
+  <!-- CURSOR (svg inserted by JS) -->
+  <div class="cursor-el" id="cursor-el" aria-hidden="true"></div>
+
+<script>
+/* ======================
+   UTIL: Cursor arreglado + estela
+   ====================== */
+const cursor = document.getElementById("cursor-el");
+cursor.innerHTML = `
+<svg viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="gradHeart" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6aa3"/>
+      <stop offset="100%" stop-color="#ffc1e3"/>
+    </linearGradient>
+  </defs>
+  <path d="M471.7 73.6c-54.5-46.4-136-38.3-186.4 13.4L256 116.7l-29.3-29.7C176.4 35.3 94.9 27.2 40.4 73.6c-62.7 53.4-66.1 149.8-10.1 207.3l185.9 191.4c12.4 12.8 29.1 20.1 46.9 20.1s34.5-7.3 46.9-20.1l185.9-191.4c56-57.5 52.6-153.9-10.1-207.3z"/>
+</svg>
+`;
+document.addEventListener("mousemove", (e) => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+  cursor.classList.add("active");
+  setTimeout(()=> cursor.classList.remove("active"), 120);
+  // trail
+  if(Math.random() < 0.12){
+    const trail = document.createElement("div");
+    trail.className = "trail";
+    trail.style.left = e.clientX + "px";
+    trail.style.top = e.clientY + "px";
+    document.body.appendChild(trail);
+    trail.animate([{ transform: "scale(1)", opacity: 0.8 }, { transform: "scale(3)", opacity: 0 }], { duration: 700, easing: "ease-out" });
+    setTimeout(()=> trail.remove(), 700);
+  }
+});
+
+/* ======================
+   BACKGROUND PARTICLES (canvas subtle)
+   ====================== */
+const particlesCanvas = document.getElementById('particles-layer');
+const pctx = particlesCanvas.getContext('2d');
+function resizeCanvas(){ particlesCanvas.width = window.innerWidth; particlesCanvas.height = window.innerHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+
+let pArr = [];
+function initParticles(n=140){
+  pArr = [];
+  for(let i=0;i<n;i++){
+    pArr.push({
+      x: Math.random()*particlesCanvas.width,
+      y: Math.random()*particlesCanvas.height,
+      r: Math.random()*1.6+0.6,
+      vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2,
+      color: ['#0fe7ff','#8ad8ff','#fff5b8','#ffd1ea'][Math.floor(Math.random()*4)]
+    });
+  }
+}
+initParticles();
+function loopParticles(){
+  pctx.clearRect(0,0,particlesCanvas.width, particlesCanvas.height);
+  for(const p of pArr){
+    p.x += p.vx; p.y += p.vy;
+    if(p.x < 0) p.x = particlesCanvas.width;
+    if(p.x > particlesCanvas.width) p.x = 0;
+    if(p.y < 0) p.y = particlesCanvas.height;
+    if(p.y > particlesCanvas.height) p.y = 0;
+    pctx.globalAlpha = 0.14;
+    pctx.beginPath();
+    pctx.fillStyle = p.color;
+    pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    pctx.fill();
+  }
+  requestAnimationFrame(loopParticles);
+}
+loopParticles();
+
+/* ======================
+   PETALS (ambient)
+   ====================== */
+const petalLayer = document.getElementById('petals-layer');
+function spawnPetal() {
+  const el = document.createElement('div');
+  el.className = 'petal';
+  el.style.left = (Math.random()*100) + 'vw';
+  el.style.top = (Math.random()*100 + 8) + 'vh';
+  el.style.transform = `rotate(${Math.random()*360}deg) scale(${0.7 + Math.random()*0.6})`;
+  petalLayer.appendChild(el);
+  el.animate([
+    { transform: el.style.transform, opacity:0.95 },
+    { transform: `translateY(-120vh) rotate(${Math.random()*720}deg) scale(0.4)`, opacity:0 }
+  ], { duration: 12000 + Math.random()*10000, easing:'linear' });
+  setTimeout(()=> el.remove(), 14000 + Math.random()*10000);
+}
+setInterval(()=> { if(Math.random() < 0.7) spawnPetal(); }, 2200);
+
+/* ======================
+   SHOOTING STARS
+   ====================== */
+const fugitiveLayer = document.getElementById('fugitive-layer');
+function shootStar(){
+  const el = document.createElement('div');
+  el.className = 'fugitive';
+  const size = 2 + Math.random()*2;
+  el.style.width = (size*8) + 'px';
+  el.style.height = '2px';
+  el.style.background = 'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,206,150,0.8), rgba(138,216,255,0.6))';
+  el.style.left = (Math.random()*80 + 10) + 'vw';
+  el.style.top = (Math.random()*40 + 5) + 'vh';
+  el.style.transform = `rotate(${20 + Math.random()*40}deg)`;
+  el.style.opacity = '0';
+  fugitiveLayer.appendChild(el);
+  el.animate([
+    { transform: el.style.transform + ' translateX(0)', opacity:0 },
+    { transform: el.style.transform + ' translateX(-30vw)', opacity:1 },
+    { transform: el.style.transform + ' translateX(-60vw)', opacity:0 }
+  ], { duration: 1800 + Math.random()*900, easing:'cubic-bezier(.2,.9,.3,.99)' });
+  setTimeout(()=> el.remove(), 2600);
+}
+setInterval(()=> { if(Math.random() < 0.6) shootStar(); }, 2400);
+
+/* ======================
+   TYPEWRITER (reveals carta text)
+   ====================== */
+function typeWriterText(el, speed=18){
+  const text = el.textContent.trim();
+  el.textContent = '';
+  let i = 0;
+  function step(){
+    el.textContent = text.slice(0, i);
+    i++;
+    if(i <= text.length) setTimeout(step, speed);
+  }
+  step();
+}
+const typeEl = document.getElementById('type-body');
+typeWriterText(typeEl, 18);
+
+/* ======================
+   COUNTDOWN
+   ====================== */
+function updateCountdown(){
+  const now = new Date();
+  let year = now.getFullYear();
+  let target = new Date(`${year}-10-17T00:00:00-05:00`);
+  if(now > target) target = new Date(`${year+1}-10-17T00:00:00-05:00`);
+  const diff = target - now;
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor(diff/(1000*60*60) % 24);
+  const m = Math.floor(diff/(1000*60) % 60);
+  const s = Math.floor(diff/1000 % 60);
+  document.getElementById('countdown').textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ======================
+   CARRUSEL MIXTO + MODAL (imágenes y vídeos)
+   ====================== */
+const mediaItems = [
+  { type: 'img', src: '/images/foto1.jpg', alt:'Recuerdo 1', poster:'/images/foto1.jpg' },
+  { type: 'video', src: '/videos/video1.mp4', poster:'/images/video1-poster.jpg' },
+  { type: 'img', src: '/images/foto2.jpg', alt:'Recuerdo 2', poster:'/images/foto2.jpg' },
+  { type: 'video', src: '/videos/video2.mp4', poster:'/images/video2-poster.jpg' },
+  { type: 'img', src: '/images/foto3.jpg', alt:'Recuerdo 3', poster:'/images/foto3.jpg' },
+  { type: 'video', src: '/videos/video3.mp4', poster:'/images/video3-poster.jpg' }
+];
+const stage = document.getElementById('carousel-stage');
+const dotsCont = document.getElementById('carousel-dots');
+let curIndex = 0;
+let autoTimer = null;
+
+function createMediaElement(item, index){
+  const wrapper = document.createElement('div');
+  wrapper.dataset.index = index;
+  wrapper.style.opacity = 0;
+  wrapper.style.transform = 'scale(.98)';
+  wrapper.style.position = 'absolute';
+  wrapper.style.inset = '0';
+  wrapper.style.display = 'flex';
+  wrapper.style.alignItems = 'center';
+  wrapper.style.justifyContent = 'center';
+
+  if(item.type === 'img'){
+    const img = document.createElement('img');
+    img.src = item.src;
+    img.alt = item.alt || '';
+    img.loading = 'lazy';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    wrapper.appendChild(img);
+    wrapper.addEventListener('click', ()=> openModalImage(item.src));
+  } else {
+    const posterWrap = document.createElement('div');
+    posterWrap.style.width='100%'; posterWrap.style.height='100%'; posterWrap.style.position='relative';
+    const poster = document.createElement('img'); poster.src = item.poster || ''; poster.loading='lazy';
+    poster.style.width='100%'; poster.style.height='100%'; poster.style.objectFit='cover';
+    posterWrap.appendChild(poster);
+
+    const play = document.createElement('div');
+    play.className = 'play-overlay';
+    play.style.left = '50%'; play.style.top = '50%'; play.style.transform = 'translate(-50%,-50%)';
+    play.innerHTML = `<svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M5 3v18l15-9L5 3z" fill="white"/></svg>`;
+    posterWrap.appendChild(play);
+
+    posterWrap.addEventListener('click', ()=> openModalVideo(item.src, item.poster));
+    wrapper.appendChild(posterWrap);
+  }
+  stage.appendChild(wrapper);
+  
+}
+
+mediaItems.forEach((m,i)=>{
+  createMediaElement(m,i);
+  const d = document.createElement('div');
+  d.className = 'dot';
+  if(i===0) d.classList.add('active');
+  d.addEventListener('click', ()=> showIndex(i));
+  dotsCont.appendChild(d);
+});
+
+function showIndex(i){
+  const nodes = stage.querySelectorAll('[data-index]');
+  nodes.forEach(n => {
+    const idx = Number(n.dataset.index);
+    if(idx === i){
+      n.style.opacity = 1; n.style.transform = 'scale(1)';
+      const vid = n.querySelector('video');
+      if(vid) { try{ vid.pause(); }catch(e){} }
+    } else {
+      n.style.opacity = 0; n.style.transform = 'scale(.98)';
+      const v = n.querySelector('video'); if(v) try{ v.pause(); }catch(e){}
+    }
+  });
+  const ds = dotsCont.querySelectorAll('.dot');
+  ds.forEach((x,ii)=> x.classList.toggle('active', ii===i));
+  curIndex = i;
+}
+function autoAdvance(){ showIndex((curIndex + 1) % mediaItems.length); }
+function resetAuto(){ if(autoTimer) clearInterval(autoTimer); autoTimer = setInterval(autoAdvance, 6000); }
+document.getElementById('prevBtn').addEventListener('click', ()=> { showIndex((curIndex -1 + mediaItems.length)%mediaItems.length); resetAuto(); });
+document.getElementById('nextBtn').addEventListener('click', ()=> { showIndex((curIndex +1) % mediaItems.length); resetAuto(); });
+showIndex(0); resetAuto();
+
+/* MODAL */
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modal-content');
+function openModalVideo(src, poster){
+  modal.classList.add('show');
+  modalContent.innerHTML = '';
+  const container = document.createElement('div');
+  container.style.position='relative';
+  container.style.padding='6px';
+  const video = document.createElement('video');
+  video.controls = true;
+  video.autoplay = true;
+  video.src = src;
+  video.poster = poster || '';
+  video.style.width = '100%';
+  video.style.height = 'auto';
+  video.muted = true; // starts muted by default; user can unmute with native controls
+  video.playsInline = true;
+  container.appendChild(video);
+  modalContent.appendChild(container);
+}
+
+
+function openModalImage(src){
+  modal.classList.add('show');
+  modalContent.innerHTML = `<img src="${src}" style="width:100%; height:auto; border-radius:8px; display:block;" />`;
+}
+document.getElementById('close-modal').addEventListener('click', ()=> { modal.classList.remove('show'); modalContent.innerHTML=''; });
+modal.addEventListener('click', (e)=> { if(e.target === modal) { modal.classList.remove('show'); modalContent.innerHTML=''; } });
+
+/* ======================
+   AUDIO ANALYSER (destellos suaves cuando suena la canción)
+   ====================== */
+const audio = document.getElementById('bg-audio');
+let audioCtx = null, analyser = null, dataArray = null, sourceNode = null;
+const starGlowEls = [];
+function setupAudioAnalyser(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 256;
+    const bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+    sourceNode = audioCtx.createMediaElementSource(audio);
+    sourceNode.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    for(let i=0;i<6;i++){
+      const el = document.createElement('div');
+      el.style.position = 'fixed';
+      el.style.width = '14px'; el.style.height='14px'; el.style.borderRadius='999px';
+      el.style.background = 'radial-gradient(circle, rgba(255,255,255,0.95), rgba(138,216,255,0.25))';
+      el.style.left = (10 + i*12) + '%';
+      el.style.top = (6 + (i%2)*4) + '%';
+      el.style.pointerEvents='none';
+      el.style.opacity = 0.2;
+      el.style.zIndex = 3;
+      document.body.appendChild(el);
+      starGlowEls.push(el);
+    }
+    function pulse(){
+      if(!analyser) return;
+      analyser.getByteFrequencyData(dataArray);
+      let sum = 0;
+      for(let i=0;i<dataArray.length;i++) sum += dataArray[i];
+      const avg = sum / dataArray.length / 255;
+      starGlowEls.forEach((el, idx) => {
+        const factor = 0.12 + avg * (0.7 + idx*0.04);
+        el.style.transform = `scale(${1 + factor})`;
+        el.style.opacity = 0.18 + avg * 0.6;
+        el.style.filter = `blur(${2 + avg*6}px)`;
+      });
+      requestAnimationFrame(pulse);
+    }
+    requestAnimationFrame(pulse);
+  }
+}
+
+/* music toggle */
+const musicBtn = document.getElementById('music-toggle');
+musicBtn.addEventListener('click', async ()=>{
+  try{
+    if(audio.paused){
+      await audio.play();
+      musicBtn.textContent = '⏸ Pausar canción';
+      if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+      if(!audioCtx) setupAudioAnalyser();
+    } else {
+      audio.pause();
+      musicBtn.textContent = '🎵 Escuchar canción';
+    }
+  }catch(e){ console.warn('audio play blocked', e); musicBtn.textContent = '▶ Reproducir (toca)'; }
+});
+
+/* ======================
+   MINIJUEGO: atrapa estrellas (transformado en estrellas)
+   ====================== */
+const gameArea = document.getElementById('game-area');
+const scoreEl = document.getElementById('score');
+let score = 0;
+function spawnStarInGame(){
+  const el = document.createElement('div');
+  el.className = 'star-sprite';
+  const left = Math.random()*82 + 6;
+  el.style.left = left + '%';
+  el.style.top = (80 + Math.random()*10) + '%';
+  gameArea.appendChild(el);
+  const dur = 2800 + Math.random()*1600;
+  el.animate([{ transform:'translateY(0) scale(1)'}, { transform:'translateY(-120px) scale(1.1)' }], { duration: dur, easing:'cubic-bezier(.2,.9,.3,.99)' });
+  el.addEventListener('click', (e)=> {
+    e.stopPropagation();
+    el.remove();
+    score++;
+    scoreEl.textContent = score;
+    showFloatingPhraseRandom(['Te amo','Mi sol','Mi universo','Eres mi todo'][Math.floor(Math.random()*4)], e.clientX, e.clientY);
+    if(score === 17)  showLargeMessage(` FELIZ CUMPLEAÑOS MI AMOOOOOOR 😍🎉`);
+    if(score === 14) showLargeMessage(` Un numero muy especial para nosotros Mi amor infinito`);
+      if(score === 10)  showLargeMessage(` Siempre a tu lado mi amor 😍`);
+       if(score === 4)  showLargeMessage(` Te amo','Mi sol','Mi universo','Eres mi todo😍`);
+  });
+  setTimeout(()=> { try{ el.remove() } catch(e){} }, dur + 200);
+}
+let gameInterval = setInterval(()=> { if(Math.random() < 0.7) spawnStarInGame(); }, 900);
+document.getElementById('reset-game').addEventListener('click', ()=> { score = 0; scoreEl.textContent = '0'; });
+
+/* ======================
+   PLANETS actions
+   ====================== */
+document.querySelectorAll('.planet').forEach(p => {
+  p.addEventListener('click', ()=> {
+    const what = p.dataset.what;
+    if(what === 'amor') showLargeMessage('Eres mi amor, mi calma, mi todo, mi paz, mi razon de ser, te amo mi amor 💞');
+    if(what === 'recuerdos') showModalGallery();
+    if(what === 'futuro') showLargeMessage('Prometo construir un futuro contigo, lleno de aventuras, risas, alegrias, amor, felicidad y ternura 🌠');
+  });
+});
+
+/* floating phrase helper */
+function showFloatingPhraseRandom(text, x=window.innerWidth/2, y=window.innerHeight/2){
+  const el = document.createElement('div');
+  el.className = 'phrase';
+  el.textContent = text;
+  el.style.left = (x + (Math.random()*40 - 20)) + 'px';
+  el.style.top = (y + (Math.random()*40 - 20)) + 'px';
+  el.style.opacity = 1;
+  el.style.transform = 'translateY(0) scale(1)';
+  document.body.appendChild(el);
+  setTimeout(()=> { el.style.opacity = 0; el.style.transform = 'translateY(-40px) scale(1.02)'; }, 1200);
+  setTimeout(()=> el.remove(), 2600);
+}
+
+/* large overlay message helper */
+const finalOverlay = document.getElementById('final-overlay');
+function showLargeMessage(text){
+  finalOverlay.innerHTML = `<div style="padding:20px 28px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); font-size:18px; font-weight:700; color:var(--text)">${text}</div>`;
+  finalOverlay.classList.add('show');
+  setTimeout(()=> finalOverlay.classList.remove('show'), 4200);
+}
+
+/* gallery modal for planet recuerdos */
+function showModalGallery(){
+  modal.classList.add('show');
+  modalContent.innerHTML = `<div style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px;">
+    <img src="/image/foto1.jpg" style="width:100%; border-radius:8px">
+    <img src="/image/foto2.jpg" style="width:100%; border-radius:8px">
+    <img src="/image/foto3.jpg" style="width:100%; border-radius:8px">
+    <img src="/image/foto4.jpg" style="width:100%; border-radius:8px">
+  </div>`;
+}
+
+/* ======================
+   SECRET CONSTELLATION (Libra -> Capricornio sequence)
+   ====================== */
+let secretState = [];
+const secretNeeded = ['libra','capricorn']; // sequence: click any star in libra then any star in capricorn
+const secretTimeoutMs = 8000; // tiempo para completar secuencia
+let secretTimer = null;
+
+function resetSecret(){
+  secretState = [];
+  if(secretTimer){ clearTimeout(secretTimer); secretTimer = null; }
+}
+function triggerSecret() {
+  // animación: corazones dorados que surgen entre constelaciones
+  const box = document.createElement('div');
+  box.style.position = 'fixed';
+  box.style.left = '50%';
+  box.style.top = '55%';
+  box.style.transform = 'translate(-50%,-50%)';
+  box.style.pointerEvents = 'none';
+  box.style.zIndex = 20000;
+  document.body.appendChild(box);
+  for(let i=0;i<28;i++){
+    const h = document.createElement('div');
+    h.className='gold-heart';
+    h.style.position='absolute';
+    const angle = Math.random()*Math.PI*2;
+    const r = 20 + Math.random()*240;
+    h.style.left = (50 + Math.cos(angle)*r/3) + '%';
+    h.style.top = (50 + Math.sin(angle)*r/4) + '%';
+    h.style.opacity = '0';
+    box.appendChild(h);
+    h.animate([{ transform:`translate(-50%,-50%) scale(.3)`, opacity:0 }, { transform:`translate(-50%,-50%) scale(1.0)`, opacity:1 }, { transform:`translate(-50%,-50%) scale(.6)`, opacity:0 }], { duration: 2200 + Math.random()*900, easing:'cubic-bezier(.2,.9,.3,.99)', delay: i*40 });
+    setTimeout(()=> h.remove(), 2600 + (i*40));
+  }
+  setTimeout(()=> box.remove(), 3000);
+  showLargeMessage('Constelación secreta desbloqueada ✨ — Nuestro lazo dorado');
+  resetSecret();
+}
+
+/* attach listeners to const stars */
+document.querySelectorAll('.const-star').forEach(s => {
+  s.style.cursor = 'pointer';
+  s.addEventListener('mouseenter', ()=> {
+    s.animate([{ r: parseFloat(s.getAttribute('r')), opacity:1 }, { r: parseFloat(s.getAttribute('r'))+2, opacity:0.9 }], { duration:260, fill:'forwards' });
+  });
+  s.addEventListener('click', (e) => {
+    const which = s.dataset.constel;
+    // show a small phrase
+    showFloatingPhraseRandom(which === 'libra' ? 'Armonía y ternura' : 'Fuerte y leal', e.clientX, e.clientY);
+    // secret sequence logic
+    secretState.push(which);
+    if(secretTimer) clearTimeout(secretTimer);
+    secretTimer = setTimeout(()=> resetSecret(), secretTimeoutMs);
+    // check if state contains sequence in order: first lib -> cap
+    if(secretState.length >= 2){
+      const lastTwo = secretState.slice(-2);
+      if(lastTwo[0] === 'libra' && lastTwo[1] === 'capricorn'){
+        triggerSecret();
+      }
+    }
+  });
+});
+
+/* ======================
+   SURPRISE BUTTON (modal with long message)
+   ====================== */
+const surpriseBtn = document.getElementById('open-surprise');
+surpriseBtn.addEventListener('click', ()=> {
+  modal.classList.add('show');
+  modalContent.innerHTML = `<div style="padding:12px;">
+    <h2 style="margin:0 0 8px 0; font-family:Parisienne;">Sorpresa para MI PRINCESA ✨</h2>
+    <p style="line-height:1.5;">BUUUUUUUUUUUU MI CHICA BELLA, jajajaja solo queria recordarte lo mucho q te amo mi cosita bella con todo mi corazon, porque eres mi razon de ser y existir mi amor, pq tienes un lindo y bello corazon muy hermoso mi amro el cual lo pienso cuidar demasiado, voy hacer que este dia sea muy especial mi chica bella a traves de mis detalles mi vida, quiero hacerte sonreir muto este dia achi como lo estoy haciendo ahora mi amor, uy tiiiii contamos hasta 3 mi amor? 1...2..yyy.3 SONRISA DE MI BB, Feliz cumpleaños mi amor, ya quiero pasar mas cumpleaños a tu lado mi vida, uy eso que veo por ahi es una risita?😍, ti amu mi bella princesa bonita💕.</p>
+    <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;"><button id="close-modal-2" class="enter-btn">Cerrar</button></div>
+  </div>`;
+  document.getElementById('close-modal-2').addEventListener('click', ()=> { modal.classList.remove('show'); });
+});
+
+/* open current slide video button */
+document.getElementById('open-modal-video').addEventListener('click', ()=> {
+  const cur = mediaItems[curIndex];
+  if(cur && cur.type === 'video') openModalVideo(cur.src, cur.poster);
+  else showLargeMessage('');
+});
+
+/* ======================
+   VOICE BUTTON (tu voz) -> espacio listo para /audio/voz.mp3
+   ====================== */
+const voiceAudio = document.getElementById('voice-audio');
+document.getElementById('play-voice').addEventListener('click', async () => {
+  try {
+    if(voiceAudio.paused) {
+      await voiceAudio.play();
+      document.getElementById('play-voice').textContent = '🔊 Pausar mensaje';
+    } else {
+      voiceAudio.pause();
+      document.getElementById('play-voice').textContent = '💖 Escuchar mensaje de mi rey';
+    }
+  } catch(e) {
+    console.warn('voice play blocked', e);
+    document.getElementById('play-voice').textContent = '▶ Toca para reproducir';
+  }
+});
+
+/* ======================
+   SECRET KEY (B + H example) -> muestra mensaje secreto
+   ====================== */
+let combo = '';
+document.addEventListener('keydown', e=>{
+  combo += e.key.toLowerCase();
+  if(combo.length > 6) combo = combo.slice(-6);
+  if(combo.includes('b') && combo.includes('h')) {
+    showLargeMessage('Este universo fue creado solo para ti, mi pequeñita bella, hecho con mucho amor mi vida 💕');
+    combo = '';
+  }
+});
+
+/* ======================
+   ENTER UNIVERSE (revela carta)
+   ====================== */
+document.getElementById('enter-universe').addEventListener('click', ()=> {
+  document.getElementById('welcome').animate([{opacity:1},{opacity:0}],{duration:400}).onfinish = ()=>{
+    document.getElementById('welcome').style.display = 'none';
+    const carta = document.getElementById('carta');
+    carta.animate([{ transform:'scale(.98)', opacity:0.9 }, { transform:'scale(1)', opacity:1 }], { duration:600, easing:'cubic-bezier(.2,.9,.3,.99)' });
+  };
+});
+
+
+
+/* ======================
+   BIRTHDAY MODE (17 Oct) -> pétalos + fireworks + message
+   ====================== */
+function isBirthdayToday(){
+  const now = new Date();
+  return (now.getMonth() === 9 && now.getDate() === 17); // month index 9 = October
+}
+
+function triggerBirthdayMode(){
+  // petals increase + soft "fireworks" (visual)
+  for(let i=0;i<40;i++) spawnPetal();
+  const container = document.getElementById('birthday-fireworks');
+  // small soft fireworks: golden circles that expand
+  for(let i=0;i<12;i++){
+    const el = document.createElement('div');
+    el.style.position='absolute';
+    el.style.left = (10 + Math.random()*80) + '%';
+    el.style.top = (10 + Math.random()*70) + '%';
+    el.style.width = '8px'; el.style.height='8px';
+    el.style.borderRadius = '50%';
+    el.style.background = 'radial-gradient(circle, rgba(255,230,180,1), rgba(255,190,80,1))';
+    el.style.opacity = '0';
+    container.appendChild(el);
+    el.animate([
+      { transform:'scale(.4)', opacity:0 },
+      { transform:'scale(1.8)', opacity:1 },
+      { transform:'scale(1.1)', opacity:0 }
+    ], { duration:1800+Math.random()*1200, easing:'cubic-bezier(.2,.9,.3,.99)', delay: i*120 });
+    setTimeout(()=> el.remove(), 2400 + i*120);
+  }
+  showLargeMessage('¡Hoy ño nacio mi mundo, nació mi universo entero, feliz cumpleaños mi TERRONCITO DE AZUCAR 💕!');
+}
+
+/* Check on load for birthday */
+if(isBirthdayToday()){
+  setTimeout(()=> triggerBirthdayMode(), 1000);
+}
+
+/* Also trigger when user reaches countdown zero (just in case) */
+const countdownNode = document.getElementById('countdown');
+function checkCountdownZero(){
+  if(countdownNode.textContent && countdownNode.textContent.startsWith('0d 00h 00m 00s')){
+    triggerBirthdayMode();
+  }
+}
+setInterval(checkCountdownZero, 1500);
+
+/* ======================
+   FINAL PHRASE: aparece al llegar al fondo
+   ====================== */
+let finalShown = false;
+function checkScrollEnd(){
+  const nearBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 20);
+  if(nearBottom && !finalShown){
+    finalShown = true;
+    const overlay = document.getElementById('final-overlay');
+    overlay.innerHTML = `<div style="padding:24px 28px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); font-size:26px; font-weight:800; color:var(--gold); text-align:center; box-shadow:0 30px 90px rgba(0,0,0,0.5);">
+      Te amo hasta el infinito y más allá Cariiiiii 😍😍💫
+    </div>`;
+    overlay.classList.add('show');
+    // pequeños destellos dorados
+    for(let i=0;i<18;i++){
+      const s = document.createElement('div');
+      s.style.position='fixed';
+      s.style.left = (40 + Math.random()*20) + '%';
+      s.style.top = (40 + Math.random()*20) + '%';
+      s.style.width = '8px'; s.style.height = '8px'; s.style.borderRadius='50%';
+      s.style.background = 'radial-gradient(circle, rgba(255,230,180,1), rgba(255,200,100,1))';
+      s.style.opacity = '0';
+      document.body.appendChild(s);
+      s.animate([{ transform:'scale(.4)', opacity:0 }, { transform:'scale(1.6)', opacity:1 }, { transform:'scale(.8)', opacity:0 }], { duration:1600 + Math.random()*900, delay: i*80 });
+      setTimeout(()=> s.remove(), 2000 + i*120);
+    }
+    setTimeout(()=> overlay.classList.remove('show'), 6000);
+  }
+}
+window.addEventListener('scroll', checkScrollEnd);
+
+/* ======================
+   Helper: Birthday mini triggered from game
+   ====================== */
+function triggerBirthdayMini(){
+  triggerBirthdayMode();
+}
+
+/* ======================
+   Accessibility: ESC closes modal
+   ====================== */
+document.addEventListener('keydown', e => { if(e.key === 'Escape') modal.classList.remove('show'); });
+
+/* ======================
+   Small welcome pulse
+   ====================== */
+setTimeout(()=> {
+  const w = document.getElementById('welcome-title');
+  w.animate([{ transform:'scale(.98)', opacity:0.9 }, { transform:'scale(1.02)', opacity:1 }], { duration:1500, direction:'alternate', iterations:2 });
+}, 800);
+
+
+</script>
+</body>
+</html>
